@@ -34,6 +34,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
+HARVEST_CLIENT_ID = config('HARVEST_CLIENT_ID', default='', cast=str)
+HARVEST_CLIENT_SECRET = config('HARVEST_CLIENT_SECRET', default='', cast=str)
 
 # Application definition
 
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'harvestreaper.googlecal',
     'harvestreaper',
     'harvestreaper.users',
+    'harvestreaper.harvest'
 ]
 
 SITE_ID = 1

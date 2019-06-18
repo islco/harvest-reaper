@@ -20,10 +20,10 @@ from django.contrib import admin
 from harvestreaper.views import HomePageView  # noqa
 
 urlpatterns = [
-    # Examples:
     path('', HomePageView.as_view(), name='home'),
 
     re_path(r'^accounts/', include('allauth.urls')),
+    re_path(r'^harvest/', include('harvestreaper.harvest.urls')),
 
     path('admin/rq/', include('django_rq.urls')),
     path('admin/', admin.site.urls),
