@@ -1,4 +1,6 @@
 from django.db.models import ForeignKey, TextField, DateTimeField, IntegerField, CASCADE, Model
+from datetime import datetime
+import pytz
 
 from harvestreaper.users.models import User
 
@@ -23,6 +25,14 @@ class HarvestToken(Model):
     def __str__(self):
         return self.token
 
-    def expired(self):
-        # TODO: Update this
+    @property
+    def is_expired(self):
+        now = pytz.UTC.localize(datetime.now())
+        if now > self.expires_at:
+            return True
+
         return False
+
+    def refresh(self):
+        print('refreshing!')
+        # do the refresh logic

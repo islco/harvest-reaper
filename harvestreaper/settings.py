@@ -49,11 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_rq',
     'debug_toolbar',
+    'harvestreaper',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'harvestreaper.googlecal',
-    'harvestreaper',
     'harvestreaper.users',
     'harvestreaper.harvest'
 ]
@@ -110,6 +110,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
