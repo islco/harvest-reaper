@@ -1,0 +1,25 @@
+{
+  "name": "harvest-reaper",
+  "env":{
+    "DJANGO_SETTINGS_MODULE":{
+      "value": "harvestreaper.settings"
+    },
+    "SECRET_KEY": {
+      "generator": "secret"
+    }
+  },
+  "addons":[
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/istrategylabs/heroku-buildpack-node-cleanup"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

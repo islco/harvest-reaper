@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+django = "<2.3"
+boto3 = "*"
+dj-database-url = "*"
+django-debug-toolbar = "*"
+django-redis = "*"
+django-rq = "*"
+django-storages = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+python-decouple = "*"
+pytz = "*"
+sentry-sdk = "*"
+redis = "*"
+rq = "*"
+whitenoise = "*"
+pillow = "*"
+django-shapeshifter = "*"
+django-allauth = "*"
+google-api-python-client = "*"
+google-auth = "*"
+
+[dev-packages]
+autopep8 = "*"
+flake8 = "*"

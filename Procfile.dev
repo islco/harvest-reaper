@@ -1,0 +1,2 @@
+web: PYTHONUNBUFFERED=True python manage.py runserver 0.0.0.0:$PORT
+rqworker: PYTHONUNBUFFERED=True python manage.py rqworker default
