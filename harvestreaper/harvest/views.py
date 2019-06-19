@@ -2,14 +2,10 @@ from django.views.generic import RedirectView
 from django.http import (
     HttpResponseNotAllowed, HttpResponseRedirect,
 )
-from requests import post
-from datetime import datetime, timedelta
 
-from harvestreaper.settings import HARVEST_CLIENT_ID, HARVEST_CLIENT_SECRET
+from harvestreaper.settings import HARVEST_CLIENT_ID
+from harvestreaper.harvest.utils import HARVEST_AUTH_URL, get_harvest_token
 from harvestreaper.harvest.models import HarvestToken
-
-HARVEST_AUTH_URL = 'https://id.getharvest.com'
-HARVEST_API_URL = 'https://api.harvestapp.com/api/v2/'
 
 
 class HarvestOAuthView(RedirectView):
@@ -26,22 +22,12 @@ class HarvestOAuthSuccessView(RedirectView):
         if not auth_code or not scope or not user.is_authenticated:
             return HttpResponseNotAllowed()
 
-        # Go out and get the actual token
-        request_data = {
-            'code': auth_code,
-            'client_id': HARVEST_CLIENT_ID,
-            'client_secret': HARVEST_CLIENT_SECRET,
-            'grant_type': 'authorization_code'
-        }
-        response = post(
-            f'{HARVEST_AUTH_URL}/api/v2/oauth2/token', json=request_data)
-        json = response.json()
-
-        # Save the token for use later!
+        token, token_secret, expires_at = get_harvest_token(
+            code=auth_code, code_key='code', grant_type='authorization_code')
         HarvestToken.objects.update_or_create(user=user,
-                                              token=json.get('access_token'),
-                                              token_secret=json.get('refresh_token'),
+                                              token=token,
+                                              token_secret=token_secret,
                                               scope=scope.split(':')[1],
-                                              expires_at=datetime.utcnow() + timedelta(seconds=json.get('expires_in')))  # noqa
+                                              expires_at=expires_at)  # noqa
 
         return HttpResponseRedirect(self.get_redirect_url(*args, **kwargs))

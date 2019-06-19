@@ -24,7 +24,7 @@ class HomePageView(TemplateView):
             if not harvest_token:
                 return redirect('harvest_auth')
 
-            # Make sure the token isn't expired for harvest (google done automatically)
+            # Make sure the token isn't expired for harvest
             if harvest_token.is_expired:
                 harvest_token.refresh()
 

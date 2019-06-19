@@ -3,6 +3,7 @@ from datetime import datetime
 import pytz
 
 from harvestreaper.users.models import User
+from harvestreaper.harvest.utils import get_harvest_token
 
 
 class HarvestToken(Model):
@@ -34,5 +35,10 @@ class HarvestToken(Model):
         return False
 
     def refresh(self):
-        print('refreshing!')
-        # do the refresh logic
+        token, token_secret, expires_at = get_harvest_token(
+            self.token_secret, 'refresh_token', 'refresh_token')
+
+        self.token = token
+        self.token_secret = token_secret
+        self.expires_at = expires_at
+        self.save()
