@@ -11,8 +11,9 @@
             {% for event in upcoming_events %}
                 <div>
                     <strong>{{event.summary}}: </strong>
-                    <span>{{event.start}}</span>
-                    <span>{{event.end}}</span>
+                    <span>{{event.start}} - </span>
+                    <span>{{event.end}} </span>
+                    <span>All day: {{event.allDay}}</span>
                 </div>
             {% endfor %}
         </div>

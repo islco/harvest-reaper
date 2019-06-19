@@ -4,6 +4,7 @@ from datetime import datetime
 
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
+from harvestreaper.googlecal.utils import get_calendar_events
 from harvestreaper.harvest.models import HarvestToken
 
 
@@ -43,26 +44,7 @@ class HomePageView(TemplateView):
         if google_social_account and harvest_token:
             # TODO: Refactor this into a util or something. No real need to be here
             token = google_social_account.socialtoken_set.first()
-            creds = Credentials(token=token.token, refresh_token=token.token_secret)
-            service = build('calendar', 'v3', credentials=creds)
-
-            now = datetime.utcnow().isoformat() + 'Z'
-            try:
-                events_result = service.events().list(calendarId='primary', timeMin=now,
-                                                      maxResults=10, singleEvents=True,
-                                                      orderBy='startTime').execute()
-            except Exception as e:
-                print(e)
-                return context
-
-            events = events_result.get('items', [])
-            massaged_events = []
-            for event in events:
-                massaged_events.append({
-                    "start": event['start'].get('dateTime', event['start'].get('date')),  # noqa
-                    "end": event['end'].get('dateTime', event['end'].get('date')),
-                    "summary": event['summary']
-                })
+            massaged_events = get_calendar_events(token)
 
             context['upcoming_events'] = massaged_events
 
