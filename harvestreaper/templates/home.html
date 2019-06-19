@@ -7,16 +7,20 @@
     {% if not user.is_authenticated %}
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
-        <div style="padding-top: 2rem;">
+        <div>{{time_window.start}} - {{time_window.end}}</div>
+        <table style="padding-top: 2rem;">
+            <tr>
+                <th>Summary</th>
+                <th>Day of week</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>All Day?</th>
+                <th>Duration</th>
+            </tr>
             {% for event in upcoming_events %}
-                <div>
-                    <strong>{{event.summary}}: </strong>
-                    <span>{{event.start}} - </span>
-                    <span>{{event.end}} </span>
-                    <span>All day: {{event.allDay}}</span>
-                </div>
+                {% include 'partials/table_row.html' with event=event %}
             {% endfor %}
-        </div>
+        </table>
         <div style="padding-top: 2rem;">
             <span>Harvest Account Id: {{harvest_account_id}}</span>
         </div>

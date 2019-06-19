@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
+from datetime import datetime, timedelta
 
 from harvestreaper.googlecal.utils import get_calendar_events
 from harvestreaper.harvest.models import HarvestToken
@@ -43,8 +44,20 @@ class HomePageView(TemplateView):
             token = google_social_account.socialtoken_set.first()
 
             # Google
-            massaged_events = get_calendar_events(token)
+            now = datetime.utcnow()
+            # We add and subtract here to account for zero indexing and bring things
+            # back to previous Sat.
+            # Adding 4 to account for UTC
+            start_day = now - timedelta(days=now.weekday() + 2) - \
+                timedelta(hours=now.hour - 4, minutes=now.minute)
+            end_day = now + timedelta(days=5 - now.weekday()) - \
+                timedelta(hours=now.hour - 4, minutes=now.minute)
+            massaged_events = get_calendar_events(token, start_day, end_day)
             context['upcoming_events'] = massaged_events
+            context['time_window'] = {
+                'start': start_day.strftime('%a, %d %b %Y'),
+                'end': end_day.strftime('%a, %d %b %Y')
+            }
 
             # Harvest
             account = get_harvest_account(harvest_token)
