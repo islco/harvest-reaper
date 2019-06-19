@@ -26,12 +26,16 @@ def get_calendar_events(token, start_date, end_date):
         start = event['start'].get('dateTime')
         end = event['end'].get('dateTime')
         day_of_week = None
+        declined_event = False
         massaged_start = "09:00"
         massaged_end = "05:00"
         duration = 8 * 60 * 60
         for attendee in event.get('attendees', []):
             if attendee.get('self', '') is True and attendee.get('responseStatus', '') == 'declined':  # noqa
-                continue
+                declined_event = True
+
+        if declined_event:
+            continue
 
         if start and end:
             start_obj = datetime.strptime(start, strptime_time_util)
