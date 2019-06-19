@@ -8,22 +8,25 @@
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
         <div>{{time_window.start}} - {{time_window.end}}</div>
-        <table style="padding-top: 2rem;">
-            <tr>
-                <th>Summary</th>
-                <th>Day of week</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>All Day?</th>
-                <th>Duration</th>
-            </tr>
-            {% for event in upcoming_events %}
-                {% include 'partials/table_row.html' with event=event %}
-            {% endfor %}
-        </table>
-        <div style="padding-top: 2rem;">
-            <span>Harvest Account Id: {{harvest_account_id}}</span>
-        </div>
+
+        <div>Things to note: Declined events are not displayed. All day events default to 8hrs.</div>
+
+        <form>
+            <table style="padding-top: 2rem;">
+                <tr>
+                    <th>Summary</th>
+                    <th>Day of week</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Project / Task</th>
+                    <th>Duration (hr)</th>
+                </tr>
+                {% for event in upcoming_events %}
+                    {% include 'partials/table_row.html' with event=event assignments=harvest_assignments%}
+                {% endfor %}
+            </table>
+            <input type="submit" value="Submit to Harvest"/>
+        </form>
     {% endif %}
 </main>
 {% endblock content %}

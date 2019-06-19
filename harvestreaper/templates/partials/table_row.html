@@ -2,7 +2,14 @@
     <td>{{event.summary}}</td>
     <td>{{event.day_of_week}}</td>
     <td>{{event.start}}</td>
-    <td>{{event.end}} </td>
-    <td>{{event.allDay}}</td>
-    <td>{{event.duration}}</td>
+    <td>{{event.end}}</td>
+    <td>
+        <select placeholder="Do not include">
+            <option value="ignore" selected="selected">Do not include</option>
+            {% for assignment in assignments %}
+                <option>{{assignment.name}}</option>
+            {% endfor %}
+        </select>
+    </td>
+    <td><input value="{{event.duration}}"></input></td>
 </tr>

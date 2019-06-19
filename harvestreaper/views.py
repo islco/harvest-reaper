@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 from harvestreaper.googlecal.utils import get_calendar_events
 from harvestreaper.harvest.models import HarvestToken
-from harvestreaper.harvest.utils import get_harvest_account
+from harvestreaper.harvest.utils import get_harvest_account, get_harvest_assignments, get_user_id
 
 
 class HomePageView(TemplateView):
@@ -61,5 +61,7 @@ class HomePageView(TemplateView):
 
             # Harvest
             account = get_harvest_account(harvest_token)
-            context['harvest_account_id'] = account
+            user_id = get_user_id(harvest_token, account)
+            assignments = get_harvest_assignments(harvest_token, account, user_id)
+            context['harvest_assignments'] = assignments
         return context
