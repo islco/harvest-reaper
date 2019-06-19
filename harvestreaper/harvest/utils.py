@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from requests import post
+from requests import post, get
 import pytz
 
 from harvestreaper.settings import HARVEST_CLIENT_ID, HARVEST_CLIENT_SECRET
@@ -21,3 +21,17 @@ def get_harvest_token(code, code_key, grant_type):
 
     # Save the token for use later!
     return json.get('access_token'), json.get('refresh_token'), pytz.UTC.localize(datetime.utcnow() + timedelta(seconds=json.get('expires_in')))
+
+
+# API
+def get_harvest_account(token):
+    headers = {
+        'Authorization': f'Bearer {token.token}'
+    }
+
+    response = get(f'{HARVEST_AUTH_URL}/api/v2/accounts',
+                   headers=headers)
+    accounts_list = response.json().get('accounts')
+    for account in accounts_list:
+        if account.get('name').lower() == 'istrategylabs':
+            return account.get('id')

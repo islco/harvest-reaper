@@ -1,11 +1,9 @@
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
-from datetime import datetime
 
-from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
 from harvestreaper.googlecal.utils import get_calendar_events
 from harvestreaper.harvest.models import HarvestToken
+from harvestreaper.harvest.utils import get_harvest_account
 
 
 class HomePageView(TemplateView):
@@ -42,10 +40,13 @@ class HomePageView(TemplateView):
 
         # Only show import data if there are both valid tokens
         if google_social_account and harvest_token:
-            # TODO: Refactor this into a util or something. No real need to be here
             token = google_social_account.socialtoken_set.first()
-            massaged_events = get_calendar_events(token)
 
+            # Google
+            massaged_events = get_calendar_events(token)
             context['upcoming_events'] = massaged_events
 
+            # Harvest
+            account = get_harvest_account(harvest_token)
+            context['harvest_account_id'] = account
         return context
