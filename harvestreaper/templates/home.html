@@ -4,13 +4,13 @@
 <script type="text/javascript">
     window.addEventListener('DOMContentLoaded', (event) => {
         const harvestProjects = {% autoescape off %}{{ harvest_projects_json }}{% endautoescape %};
-        const allProjectInputs = document.querySelectorAll('[data-test="project-input"]');
+        const allProjectInputs = document.querySelectorAll('[data-sel="project-input"]');
 
         Array.from(allProjectInputs).forEach(projectInput => {
             projectInput.addEventListener('change', () => {
                 const index = projectInput.dataset.index;
                 const projectInputValue = projectInput.options[projectInput.selectedIndex].value;
-                const assignmentInput = document.querySelector(`[data-index="${index}"][data-test="assignment-input"]`);
+                const assignmentInput = document.querySelector(`[data-index="${index}"][data-sel="assignment-input"]`);
 
                 // Remove existing options
                 Array.from(assignmentInput.options).forEach((opt) => {
@@ -51,7 +51,8 @@
 
         <div>Things to note: Declined events are not displayed. All day events default to 8hrs.</div>
 
-        <form>
+        <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
+            {% csrf_token %}
             <table style="padding-top: 2rem;">
                 <tr>
                     <th>Summary</th>

@@ -1,4 +1,4 @@
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from django.http import (
     HttpResponseNotAllowed, HttpResponseRedirect,
 )
@@ -31,3 +31,12 @@ class HarvestOAuthSuccessView(RedirectView):
                                               expires_at=expires_at)  # noqa
 
         return HttpResponseRedirect(self.get_redirect_url(*args, **kwargs))
+
+
+class HarvestTimeSubmitView(TemplateView):
+    http_method_names = ['post']
+    template_name = 'time_submit.html'
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
