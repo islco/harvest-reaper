@@ -81,7 +81,7 @@ def get_harvest_assignments(token, account_id, user_id):
     return projects_list
 
 
-def post_harvest_time_entry(token, account_id, project_id, task_id, spent_date, hours):
+def post_harvest_time_entry(token, account_id, project_id, task_id, spent_date, hours, notes=''):
     headers = {
         'Authorization': f'Bearer {token.token}',
         'Harvest-Account-Id': str(account_id)
@@ -91,7 +91,8 @@ def post_harvest_time_entry(token, account_id, project_id, task_id, spent_date, 
         'project_id': project_id,
         'task_id': task_id,
         'spent_date': spent_date.isoformat(),
-        'hours': hours
+        'hours': hours,
+        'notes': notes
     }
     created_entry = post(f'{HARVEST_API_URL}/time_entries',
                          headers=headers, json=time_data)

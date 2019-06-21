@@ -66,6 +66,7 @@ class HarvestTimeSubmitView(TemplateView):
 
                 project = form_data.get(f'project-{index_val}', None)
                 duration = form_data.get(f'duration-{index_val}', None)
+                notes = form_data.get(f'notes-{index_val}', None)
                 raw_time = form_data.get(f'time-{index_val}', None)
 
                 if project and duration and raw_time:
@@ -73,7 +74,7 @@ class HarvestTimeSubmitView(TemplateView):
                     time = datetime.strptime(raw_time, STRPTIME_UTIL)
 
                     created_entry = post_harvest_time_entry(
-                        harvest_token, account_id, project, assignment, time, duration)
+                        harvest_token, account_id, project, assignment, time, duration, notes)
 
         # TODO: Add to context
 

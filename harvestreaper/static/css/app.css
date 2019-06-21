@@ -1,3 +1,7 @@
+:root {
+    --isl-color: #43d8f8;
+}
+
 /* TABLE */
 tr {
     height: 32px;
@@ -12,5 +16,14 @@ tr:nth-child(odd) {
 }
 
 .table-header__date {
-    background: #43d8f8;
+    background: var(--isl-color);
+}
+
+/* BUTTONS */
+.button--submit {
+    background: var(--isl-color);
+    border: none;
+    height: 2rem;
+    cursor: pointer;
+    width: 8rem;
 }

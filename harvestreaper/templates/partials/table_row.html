@@ -16,5 +16,6 @@
             <option value="ignore" selected="selected">Do not include</option>
         </select>
     </td>
-    <td><input name="duration-{{day}}-{{index}}" type="number" value="{{event.duration}}"></input></td>
+    <td><input name="duration-{{day}}-{{index}}" type="number" step="0.01" value="{{event.duration}}"></input></td>
+    <td><input name="notes-{{day}}-{{index}}" type="text" value="{{event.summary}}"></input></td>
 </tr>
