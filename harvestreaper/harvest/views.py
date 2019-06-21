@@ -43,7 +43,6 @@ class HarvestTimeSubmitView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         form_data = request.POST
-        print(form_data)
         calendar_entries = form_data.get('calendarentries', 0)
         account_id = form_data.get('harvestid', 0)
 
