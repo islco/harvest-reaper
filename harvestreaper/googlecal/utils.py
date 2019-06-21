@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from pytz import timezone
 
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
@@ -13,7 +14,15 @@ def get_calendar_events(token, start_date, end_date):
     formatted_start = start_date.isoformat() + 'Z'
     formatted_end = end_date.isoformat() + 'Z'
 
-    massaged_events = []
+    massaged_events = {
+        'Sat': [],
+        'Sun': [],
+        'Mon': [],
+        'Tue': [],
+        'Wed': [],
+        'Thu': [],
+        'Fri': []
+    }
     try:
         events_result = service.events().list(calendarId='primary', timeMin=formatted_start,
                                               timeMax=formatted_end, singleEvents=True,
@@ -47,15 +56,18 @@ def get_calendar_events(token, start_date, end_date):
             massaged_start = start_obj.strftime(STRFTIME_UTIL)
             massaged_end = end_obj.strftime(STRFTIME_UTIL)
         else:
-            day_of_week = datetime.strptime(event['start'].get('date'), '%Y-%m-%d').strftime('%a')
+            raw_day = timezone(
+                'US/Eastern').localize(datetime.strptime(event['start'].get('date'), '%Y-%m-%d'))
+            day_of_week = raw_day.strftime('%a')
+            start = datetime.strftime(raw_day + timedelta(hours=9),
+                                      STRPTIME_UTIL)  # Set to 9AM by default
             massaged_start = "09:00AM"
             massaged_end = "05:00PM"
 
-        massaged_events.append({
+        massaged_events[day_of_week].append({
             "start": massaged_start,
             "raw_start": start,
             "end": massaged_end,
-            "day_of_week": day_of_week,
             "duration": round(duration / 60 / 60, 2),
             "summary": event['summary']
         })

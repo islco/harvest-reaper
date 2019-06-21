@@ -1,11 +1,10 @@
 <tr>
-    <td>{{event.summary}}</td>
-    <td>{{event.day_of_week}}</td>
     <td>{{event.start}}</td>
-    <input type="hidden" name="time-{{index}}" value="{{event.raw_start}}">
+    <input type="hidden" name="time-{{day}}-{{index}}" value="{{event.raw_start}}">
     <td>{{event.end}}</td>
+    <td>{{event.summary}}</td>
     <td>
-        <select name="project-{{index}}" data-index="{{index}}" data-sel="project-input">
+        <select name="project-{{day}}-{{index}}" data-index="{{day}}-{{index}}" data-sel="project-input">
             <option value="ignore" selected="selected">Do not include</option>
             {% for project in projects %}
                 <option value="{{project.project_id}}">{{project.project_name}}</option>
@@ -13,9 +12,9 @@
         </select>
     </td>
     <td>
-        <select name="assignment-{{index}}" data-index="{{index}}" data-sel="assignment-input" disabled>
+        <select name="assignment-{{day}}-{{index}}" data-index="{{day}}-{{index}}" data-sel="assignment-input" disabled>
             <option value="ignore" selected="selected">Do not include</option>
         </select>
     </td>
-    <td><input name="duration-{{index}}" type="number" value="{{event.duration}}"></input></td>
+    <td><input name="duration-{{day}}-{{index}}" type="number" value="{{event.duration}}"></input></td>
 </tr>

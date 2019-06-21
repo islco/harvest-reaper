@@ -43,26 +43,37 @@ class HarvestTimeSubmitView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         form_data = request.POST
-        calendar_entries = form_data.get('calendarentries', 0)
+        entries = [
+            ('sat', form_data.get('satentries', 0)),
+            ('sun', form_data.get('sunentries', 0)),
+            ('mon', form_data.get('monentries', 0)),
+            ('tue', form_data.get('tueentries', 0)),
+            ('wed', form_data.get('wedentries', 0)),
+            ('thu', form_data.get('thuentries', 0)),
+            ('fri', form_data.get('frientries', 0)),
+        ]
+
         account_id = form_data.get('harvestid', 0)
 
         # Iterate over every possible calendar entry and submit to Harvest
-        for i in range(int(calendar_entries) + 1):
-            assignment = form_data.get(f'assignment-{i}', None)
-            # No assignment means that the data shouldn't be sent
-            if not assignment:
-                continue
+        for entry in entries:
+            for i in range(int(entry[1]) + 1):
+                index_val = f'{entry[0]}-{i}'
+                assignment = form_data.get(f'assignment-{index_val}', None)
+                # No assignment means that the data shouldn't be sent
+                if not assignment:
+                    continue
 
-            project = form_data.get(f'project-{i}', None)
-            duration = form_data.get(f'duration-{i}', None)
-            raw_time = form_data.get(f'time-{i}', None)
+                project = form_data.get(f'project-{index_val}', None)
+                duration = form_data.get(f'duration-{index_val}', None)
+                raw_time = form_data.get(f'time-{index_val}', None)
 
-            if project and duration and raw_time:
-                harvest_token = HarvestToken.objects.filter(user=self.request.user).first()
-                time = datetime.strptime(raw_time, STRPTIME_UTIL)
+                if project and duration and raw_time:
+                    harvest_token = HarvestToken.objects.filter(user=self.request.user).first()
+                    time = datetime.strptime(raw_time, STRPTIME_UTIL)
 
-                created_entry = post_harvest_time_entry(
-                    harvest_token, account_id, project, assignment, time, duration)
+                    created_entry = post_harvest_time_entry(
+                        harvest_token, account_id, project, assignment, time, duration)
 
         # TODO: Add to context
 

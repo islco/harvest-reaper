@@ -1,0 +1,16 @@
+/* TABLE */
+tr {
+    height: 32px;
+}
+
+tr:nth-child(even) {
+    background: #e7e7e7;
+}
+
+tr:nth-child(odd) {
+    background: #fff;
+}
+
+.table-header__date {
+    background: #43d8f8;
+}

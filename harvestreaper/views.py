@@ -54,7 +54,13 @@ class HomePageView(TemplateView):
             end_day = now + timedelta(days=5 - now.weekday()) - \
                 timedelta(hours=now.hour - 4, minutes=now.minute)
             massaged_events = get_calendar_events(token, start_day, end_day)
-            context['upcoming_events'] = massaged_events
+            context['sat_events'] = massaged_events['Sat']
+            context['sun_events'] = massaged_events['Sun']
+            context['mon_events'] = massaged_events['Mon']
+            context['tue_events'] = massaged_events['Tue']
+            context['wed_events'] = massaged_events['Wed']
+            context['thu_events'] = massaged_events['Thu']
+            context['fri_events'] = massaged_events['Fri']
             context['time_window'] = {
                 'start': start_day.strftime('%a, %d %b %Y'),
                 'end': end_day.strftime('%a, %d %b %Y')
