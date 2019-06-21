@@ -3,14 +3,15 @@ from datetime import datetime
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 
+STRPTIME_UTIL = "%Y-%m-%dT%H:%M:%S%z"
+STRFTIME_UTIL = "%I:%M%p"
+
 
 def get_calendar_events(token, start_date, end_date):
     creds = Credentials(token=token.token, refresh_token=token.token_secret)
     service = build('calendar', 'v3', credentials=creds)
     formatted_start = start_date.isoformat() + 'Z'
     formatted_end = end_date.isoformat() + 'Z'
-    strptime_time_util = "%Y-%m-%dT%H:%M:%S%z"
-    strftime_time_util = "%I:%M%p"
 
     massaged_events = []
     try:
@@ -38,13 +39,13 @@ def get_calendar_events(token, start_date, end_date):
             continue
 
         if start and end:
-            start_obj = datetime.strptime(start, strptime_time_util)
-            end_obj = datetime.strptime(end, strptime_time_util)
+            start_obj = datetime.strptime(start, STRPTIME_UTIL)
+            end_obj = datetime.strptime(end, STRPTIME_UTIL)
 
             day_of_week = start_obj.strftime('%a')
             duration = (end_obj - start_obj).total_seconds()
-            massaged_start = start_obj.strftime(strftime_time_util)
-            massaged_end = end_obj.strftime(strftime_time_util)
+            massaged_start = start_obj.strftime(STRFTIME_UTIL)
+            massaged_end = end_obj.strftime(STRFTIME_UTIL)
         else:
             day_of_week = datetime.strptime(event['start'].get('date'), '%Y-%m-%d').strftime('%a')
             massaged_start = "09:00AM"
@@ -52,6 +53,7 @@ def get_calendar_events(token, start_date, end_date):
 
         massaged_events.append({
             "start": massaged_start,
+            "raw_start": start,
             "end": massaged_end,
             "day_of_week": day_of_week,
             "duration": round(duration / 60 / 60, 2),

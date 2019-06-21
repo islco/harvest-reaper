@@ -64,6 +64,7 @@ class HomePageView(TemplateView):
             account = get_harvest_account(harvest_token)
             user_id = get_user_id(harvest_token, account)
             projects = get_harvest_assignments(harvest_token, account, user_id)
+            context['harvest_id'] = account
             context['harvest_projects'] = projects
             context['harvest_projects_json'] = json.dumps(projects)
         return context

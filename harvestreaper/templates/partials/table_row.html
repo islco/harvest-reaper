@@ -2,6 +2,7 @@
     <td>{{event.summary}}</td>
     <td>{{event.day_of_week}}</td>
     <td>{{event.start}}</td>
+    <input type="hidden" name="time-{{index}}" value="{{event.raw_start}}">
     <td>{{event.end}}</td>
     <td>
         <select name="project-{{index}}" data-index="{{index}}" data-sel="project-input">

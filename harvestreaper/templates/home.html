@@ -53,6 +53,8 @@
 
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
+            <input type="hidden" name="calendarentries" value="{{upcoming_events|length}}">
+            <input type="hidden" name="harvestid" value="{{harvest_id}}">
             <table style="padding-top: 2rem;">
                 <tr>
                     <th>Summary</th>
