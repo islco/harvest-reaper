@@ -57,7 +57,7 @@ def get_harvest_assignments(token, account_id, user_id):
                    headers=headers)
     project_assignments = response.json().get('project_assignments', [])
 
-    assignments_list = []
+    projects_list = []
     for assign in project_assignments:
         client = assign.get('client', {})
         client_name = client.get('name', '')
@@ -65,12 +65,17 @@ def get_harvest_assignments(token, account_id, user_id):
         project_id = proj.get('id', 0)
         project_name = proj.get('name', '')
 
+        project_with_assignments = {
+            'project_id': project_id,
+            'project_name': f'{client_name} {project_name}',
+            'assignments': []
+        }
         for task_assign in assign.get('task_assignments', []):
             task = task_assign.get('task', {})
-            assignments_list.append({
+            project_with_assignments['assignments'].append({
                 'task_id': task.get('id', 0),
-                'project_id': project_id,
-                'name': f'{client_name} {project_name} + {task.get("name", "")}'
+                'name': f'{task.get("name", "")}'
             })
+        projects_list.append(project_with_assignments)
 
-    return assignments_list
+    return projects_list

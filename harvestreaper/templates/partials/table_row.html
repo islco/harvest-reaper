@@ -4,10 +4,10 @@
     <td>{{event.start}}</td>
     <td>{{event.end}}</td>
     <td>
-        <select placeholder="Do not include">
+        <select data-test="project-input" placeholder="Do not include">
             <option value="ignore" selected="selected">Do not include</option>
-            {% for assignment in assignments %}
-                <option>{{assignment.name}}</option>
+            {% for project in projects %}
+                <option>{{project.project_name}}</option>
             {% endfor %}
         </select>
     </td>

@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from datetime import datetime, timedelta
+import json
 
 from harvestreaper.googlecal.utils import get_calendar_events
 from harvestreaper.harvest.models import HarvestToken
@@ -62,6 +63,7 @@ class HomePageView(TemplateView):
             # Harvest
             account = get_harvest_account(harvest_token)
             user_id = get_user_id(harvest_token, account)
-            assignments = get_harvest_assignments(harvest_token, account, user_id)
-            context['harvest_assignments'] = assignments
+            projects = get_harvest_assignments(harvest_token, account, user_id)
+            context['harvest_projects'] = projects
+            context['harvest_projects_json'] = json.dumps(projects)
         return context
