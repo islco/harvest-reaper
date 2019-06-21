@@ -1,5 +1,45 @@
 {% extends 'base.html' %}
 
+{% block extra_head %}
+<script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const harvestProjects = {% autoescape off %}{{ harvest_projects_json }}{% endautoescape %};
+        const allProjectInputs = document.querySelectorAll('[data-sel="project-input"]');
+
+        Array.from(allProjectInputs).forEach(projectInput => {
+            projectInput.addEventListener('change', () => {
+                const index = projectInput.dataset.index;
+                const projectInputValue = projectInput.options[projectInput.selectedIndex].value;
+                const assignmentInput = document.querySelector(`[data-index="${index}"][data-sel="assignment-input"]`);
+
+                // Remove existing options
+                Array.from(assignmentInput.options).forEach((opt) => {
+                    if (opt.value == 'ignore') return;
+                    opt.remove();
+                });
+
+                // Remove or add disabled based on selected option
+                if (projectInputValue == 'ignore') {
+                    assignmentInput.setAttribute('disabled', true);
+                    return;
+                } else {
+                    assignmentInput.removeAttribute('disabled');
+                }
+
+                // Assign correct tasks
+                const assignmentList = harvestProjects.find((proj) => proj.project_id == projectInputValue).assignments;
+                assignmentList.forEach((item) => {
+                    const option = document.createElement("option");
+                    option.text = item.name;
+                    option.value = item.task_id;
+                    assignmentInput.add(option);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}
+
 {% block content %}
 <main>
     <h1>Hello, Harvest Reaper!</h1>
@@ -11,18 +51,20 @@
 
         <div>Things to note: Declined events are not displayed. All day events default to 8hrs.</div>
 
-        <form>
+        <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
+            {% csrf_token %}
             <table style="padding-top: 2rem;">
                 <tr>
                     <th>Summary</th>
                     <th>Day of week</th>
                     <th>Start</th>
                     <th>End</th>
-                    <th>Project / Task</th>
+                    <th>Project</th>
+                    <th>Task</th>
                     <th>Duration (hr)</th>
                 </tr>
                 {% for event in upcoming_events %}
-                    {% include 'partials/table_row.html' with event=event assignments=harvest_assignments%}
+                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter %}
                 {% endfor %}
             </table>
             <input type="submit" value="Submit to Harvest"/>
