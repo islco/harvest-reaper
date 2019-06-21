@@ -57,8 +57,8 @@
         <div>{{time_window.start}} - {{time_window.end}}</div>
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
-            <input type="hidden" name="sunentries" value="{{sun_events|length}}">
             <input type="hidden" name="satentries" value="{{sat_events|length}}">
+            <input type="hidden" name="sunentries" value="{{sun_events|length}}">
             <input type="hidden" name="monentries" value="{{mon_events|length}}">
             <input type="hidden" name="tueentries" value="{{tue_events|length}}">
             <input type="hidden" name="wedentries" value="{{wed_events|length}}">
@@ -75,14 +75,15 @@
                     <th>Duration (hr)</th>
                     <th>Notes</th>
                 </tr>
-                {% include 'partials/table_day_header.html' with day='Sunday' %}
-                {% for event in sun_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
-                {% endfor %}
 
                 {% include 'partials/table_day_header.html' with day='Saturday' %}
                 {% for event in sat_events %}
                     {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
+                {% endfor %}
+
+                {% include 'partials/table_day_header.html' with day='Sunday' %}
+                {% for event in sun_events %}
+                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
                 {% endfor %}
 
                 {% include 'partials/table_day_header.html' with day='Monday' %}
