@@ -60,6 +60,14 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+SOCIALACCOUNT_PROVIDERS = {
+    'googlecal': {
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        }
+    }
+}
+
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
