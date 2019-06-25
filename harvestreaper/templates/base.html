@@ -12,37 +12,40 @@
     {% block extra_head %}
     {% endblock %}
   </head>
-  <body>
+  <body {% if noscroll %}class="body--no-scroll"{% endif %}>
     {% block body %}
-
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% url 'home' as home_url %}
-        {% if request.path != home_url %}
-            <li><a href="{{ home_url }}">Home</a></li>
+        {% if messages %}
+        <div>
+        <strong>Messages:</strong>
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        </div>
         {% endif %}
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In/Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
+
+        {% block menu %}
+        <div>
+        <strong>Menu:</strong>
+        <ul>
+            {% url 'home' as home_url %}
+            {% if request.path != home_url %}
+                <li><a href="{{ home_url }}">Home</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+            {% else %}
+            <li><a href="{% url 'account_login' %}">Sign In/Sign Up</a></li>
+            {% endif %}
+        </ul>
+        </div>
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
     {% endblock %}
-    {% endblock %}
+
     {% block extra_body %}
     {% endblock %}
   </body>

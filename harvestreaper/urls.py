@@ -17,10 +17,11 @@ from django.conf import settings
 from django.urls import include, path, re_path
 from django.contrib import admin
 
-from harvestreaper.views import HomePageView  # noqa
+from harvestreaper.views import HomePageView, LandingPageView
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
+    path('', LandingPageView.as_view(), name='landing'),
+    path('home', HomePageView.as_view(), name='home'),
 
     re_path(r'^accounts/', include('allauth.urls')),
     re_path(r'^harvest/', include('harvestreaper.harvest.urls')),

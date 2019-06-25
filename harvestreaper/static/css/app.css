@@ -1,6 +1,11 @@
+@import "landing.css";
+@import "utils/buttons.css";
+
 /* BASE */
 :root {
     --isl-color: #43d8f8;
+    --black: #000;
+    --white: #fff;
 }
 
 h1,
@@ -23,6 +28,11 @@ table * {
     font-family: "Rubik", sans-serif;
 }
 
+.body--no-scroll {
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* TABLE */
 tr {
     height: 32px;
@@ -38,13 +48,4 @@ tr:nth-child(odd) {
 
 .table-header__date {
     background: var(--isl-color);
-}
-
-/* BUTTONS */
-.button--submit {
-    background: var(--isl-color);
-    border: none;
-    height: 2rem;
-    cursor: pointer;
-    width: 8rem;
 }
