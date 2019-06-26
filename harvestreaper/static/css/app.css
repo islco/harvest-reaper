@@ -40,3 +40,7 @@ table * {
     height: 100vh;
     overflow: hidden;
 }
+
+.text-center {
+    text-align: center;
+}

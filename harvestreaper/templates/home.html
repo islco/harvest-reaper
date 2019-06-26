@@ -41,20 +41,14 @@
 {% endblock %}
 
 {% block content %}
-<main class="home--text-center">
+<main class="text-center">
     <h3>{{user.first_name}} {{user.last_name}}</h3>
 
     {% if not user.is_authenticated %}
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
-        <!-- <span>Things to note:</span>
-        <ul>
-            <li>To not submit an event leave the project and/or task as 'Do not include'</li>
-            <li>Declined events are not displayed.</li>
-            <li>All day events default to 8hrs.</li>
-        </ul> -->
-
         <h1>{{time_window.start}} - {{time_window.end}}</h1>
+
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
             <input type="hidden" name="satentries" value="{{sat_events|length}}">
