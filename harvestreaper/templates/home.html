@@ -41,20 +41,20 @@
 {% endblock %}
 
 {% block content %}
-<main>
-    <h1>Hello, Harvest Reaper!</h1>
+<main class="home--text-center">
+    <h3>{{user.first_name}} {{user.last_name}}</h3>
 
     {% if not user.is_authenticated %}
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
-        <span>Things to note:</span>
+        <!-- <span>Things to note:</span>
         <ul>
             <li>To not submit an event leave the project and/or task as 'Do not include'</li>
             <li>Declined events are not displayed.</li>
             <li>All day events default to 8hrs.</li>
-        </ul>
+        </ul> -->
 
-        <div>{{time_window.start}} - {{time_window.end}}</div>
+        <h1>{{time_window.start}} - {{time_window.end}}</h1>
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
             <input type="hidden" name="satentries" value="{{sat_events|length}}">
@@ -65,15 +65,15 @@
             <input type="hidden" name="thuentries" value="{{thu_events|length}}">
             <input type="hidden" name="frientries" value="{{fri_events|length}}">
             <input type="hidden" name="harvestid" value="{{harvest_id}}">
-            <table>
+            <table class='home__table'>
                 <tr>
                     <th>Start</th>
                     <th>End</th>
                     <th>Summary</th>
-                    <th>Project</th>
-                    <th>Task</th>
-                    <th>Duration (hr)</th>
-                    <th>Notes</th>
+                    <th class="home__project-column">Project</th>
+                    <th class="home__task-column">Task</th>
+                    <th class="home__duration-column">Duration (hr)</th>
+                    <th class="home__notes-column">Notes</th>
                 </tr>
 
                 {% include 'partials/table_day_header.html' with day='Saturday' %}
@@ -111,7 +111,7 @@
                     {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
                 {% endfor %}
             </table>
-            <input class='button' type="submit" value="Submit to Harvest"/>
+            <input class='home__submit-button button' type="submit" value="Reap what you've sown!"/>
         </form>
     {% endif %}
 </main>

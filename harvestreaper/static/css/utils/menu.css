@@ -1,0 +1,15 @@
+.menu {
+    min-height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu__logo {
+    min-height: 4rem;
+    min-width: 4rem;
+}
+
+.menu__button {
+    margin: 1rem 0;
+}

@@ -1,0 +1,48 @@
+.home--text-center {
+    text-align: center;
+}
+
+/* TABLE */
+.home__project-column {
+    width: 15rem;
+}
+.home__task-column {
+    width: 10rem;
+}
+.home__duration-column {
+    width: 2rem;
+}
+.home__notes-column {
+    width: 20rem;
+}
+
+.home__day-row {
+    background: var(--black);
+    color: var(--white);
+}
+
+.home__table td {
+    padding: 0.5rem;
+}
+
+.home__table tr {
+    height: 32px;
+}
+
+.home__table tr:nth-child(even) {
+    background: #e7e7e7;
+}
+
+.home_table tr:nth-child(odd) {
+    background: #fff;
+}
+
+.home__table select,
+.home__table input {
+    width: 100%;
+    font-size: 14px;
+}
+
+.home__submit-button {
+    margin: 1rem 0;
+}

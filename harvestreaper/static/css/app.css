@@ -1,11 +1,19 @@
-@import "landing.css";
 @import "utils/buttons.css";
+@import "landing.css";
+@import "home.css";
+@import "utils/menu.css";
 
 /* BASE */
 :root {
     --isl-color: #43d8f8;
     --black: #000;
     --white: #fff;
+}
+
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 h1,
@@ -31,21 +39,4 @@ table * {
 .body--no-scroll {
     height: 100vh;
     overflow: hidden;
-}
-
-/* TABLE */
-tr {
-    height: 32px;
-}
-
-tr:nth-child(even) {
-    background: #e7e7e7;
-}
-
-tr:nth-child(odd) {
-    background: #fff;
-}
-
-.table-header__date {
-    background: var(--isl-color);
 }

@@ -9,12 +9,11 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem;
 }
 
 .landing__logo {
     max-width: 25vw;
-    margin-left: 2.5rem; /* Super hacky adjusment for desktop "centered" appearance */
+    margin-left: 2rem; /* Super hacky adjusment for desktop "centered" appearance */
 }
 
 /* Right Side */
