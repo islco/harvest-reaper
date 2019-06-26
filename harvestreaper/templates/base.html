@@ -12,37 +12,26 @@
     {% block extra_head %}
     {% endblock %}
   </head>
-  <body>
+  <body {% if noscroll %}class="body--no-scroll"{% endif %}>
     {% block body %}
+        {% block menu %}
+        <div class='menu'>
+            <a href="{% url 'home' %}">
+                <img class="menu__logo" src="{% static 'img/logo-mark.svg' %}" alt="Harvest Reaper Logo"/>
+            </a>
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+            {% if user.is_authenticated %}
+                <a class='menu__button button' href="{% url 'account_logout' %}">Sign Out</a>
+            {% else %}
+                <a class='menu__button button' href="{% url 'account_login' %}">Sign In/Sign Up</a>
+            {% endif %}
+        </div>
+        {% endblock %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% url 'home' as home_url %}
-        {% if request.path != home_url %}
-            <li><a href="{{ home_url }}">Home</a></li>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In/Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
+        {% block content %}
+        {% endblock %}
     {% endblock %}
-    {% endblock %}
+
     {% block extra_body %}
     {% endblock %}
   </body>

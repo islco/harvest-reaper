@@ -8,6 +8,23 @@ from harvestreaper.harvest.models import HarvestToken
 from harvestreaper.harvest.utils import get_harvest_account, get_harvest_assignments, get_user_id
 
 
+class LandingPageView(TemplateView):
+    template_name = 'landing.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        user = self.request.user
+
+        if user.is_authenticated:
+            return redirect('home')
+
+        return super(LandingPageView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noscroll'] = True
+        return context
+
+
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
@@ -31,6 +48,8 @@ class HomePageView(TemplateView):
 
             kwargs['google'] = google_social_account
             kwargs['harvest'] = harvest_token
+        else:
+            return redirect('landing')
 
         return super(HomePageView, self).dispatch(request, *args, **kwargs)
 

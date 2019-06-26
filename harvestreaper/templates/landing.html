@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static socialaccount %}
+
+{# Hide menu on the landing page #}
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+<main class='landing__container'>
+    <div class="landing__content-container">
+        <img class="landing__logo" src="{% static 'img/logo-type.svg' %}" alt="Harvest Reaper Logo"/>
+        <p>Is your calendar basically an exact replica of your time sheet? Would you like to not have to have two
+            windows open to upload your time?
+        </p>
+        <strong>Try Harvest Reaper (very much a beta).</strong>
+
+        {% get_providers as socialaccount_providers %}
+        {% for provider in socialaccount_providers %}
+            <a class="button" role="button" title="{{provider.name}}" href="{% provider_login_url provider.id process='login' scope=scope auth_params=auth_params %}">Sign In With {{provider.name}}</a>
+        {% endfor %}
+    </div>
+
+    <img class="landing__graphic" src="{% static 'img/ReaperCal.png' %}" alt="Harvest Reaper coming to get your calendar!"/>
+</main>
+{% endblock content %}

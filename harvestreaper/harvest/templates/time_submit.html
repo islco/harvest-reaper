@@ -1,2 +1,9 @@
-<div>Success!</div>
-<span>Go forth and <a href='https://isltime.harvestapp.com/'>check your harvest</a> to make sure everything is going well</span>
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class='text-center'>
+        <img src="https://media.giphy.com/media/pa37AAGzKXoek/giphy.gif" alt="Successfully reaping!"/>
+        <h1>Congrats!</h1>
+        <span>Check <a href='https://isltime.harvestapp.com/'>Harvest</a> to confirm</span>
+    </main>
+{% endblock %}

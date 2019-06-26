@@ -1,0 +1,16 @@
+.button {
+    margin-top: 1rem;
+    padding: 1rem;
+    color: inherit;
+    background: var(--white);
+    border: 2px solid var(--black);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: "Rubik Mono One", sans-serif;
+}
+
+.button:hover {
+    color: var(--white);
+    background: var(--black);
+}

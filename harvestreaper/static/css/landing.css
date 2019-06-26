@@ -1,0 +1,22 @@
+.landing__container {
+    display: flex;
+}
+
+/* Left Side */
+.landing__content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.landing__logo {
+    max-width: 25vw;
+    margin-left: 2rem; /* Super hacky adjusment for desktop "centered" appearance */
+}
+
+/* Right Side */
+.landing__graphic {
+    max-height: 100vh;
+}

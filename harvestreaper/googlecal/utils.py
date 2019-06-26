@@ -1,15 +1,36 @@
 from datetime import datetime, timedelta
-from pytz import timezone
+from pytz import timezone, UTC
 
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+
+from harvestreaper.googlecal.views import GoogleOAuth2Adapter
+from harvestreaper.settings import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 
 STRPTIME_UTIL = "%Y-%m-%dT%H:%M:%S%z"
 STRFTIME_UTIL = "%I:%M%p"
 
 
+def _get_creds(token):
+    now = UTC.localize(datetime.now())
+    creds = Credentials(token=token.token, refresh_token=token.token_secret,
+                        token_uri=GoogleOAuth2Adapter.access_token_url,
+                        client_id=GOOGLE_CLIENT_ID, client_secret=GOOGLE_CLIENT_SECRET)
+
+    # Refresh the token if the token is expired
+    if now > token.expires_at:
+        creds.refresh(Request())
+        token.token = creds.token
+        token.token_secret = creds.refresh_token
+        token.expires_at = UTC.localize(creds.expiry)
+        token.save()
+
+    return creds
+
+
 def get_calendar_events(token, start_date, end_date):
-    creds = Credentials(token=token.token, refresh_token=token.token_secret)
+    creds = _get_creds(token)
     service = build('calendar', 'v3', credentials=creds)
     formatted_start = start_date.isoformat() + 'Z'
     formatted_end = end_date.isoformat() + 'Z'
