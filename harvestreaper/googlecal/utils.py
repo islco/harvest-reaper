@@ -19,13 +19,11 @@ def _get_creds(token):
                         client_id=GOOGLE_CLIENT_ID, client_secret=GOOGLE_CLIENT_SECRET)
 
     # Refresh the token if the token is expired
-    import pdb
-    pdb.set_trace()
     if now > token.expires_at:
         creds.refresh(Request())
         token.token = creds.token
         token.token_secret = creds.refresh_token
-        token.expires_at = creds.expiry
+        token.expires_at = UTC.localize(creds.expiry)
         token.save()
 
     return creds
