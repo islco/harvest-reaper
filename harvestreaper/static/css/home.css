@@ -6,7 +6,7 @@
     width: 10rem;
 }
 .home__duration-column {
-    width: 2rem;
+    width: 4rem;
 }
 .home__notes-column {
     width: 20rem;
@@ -15,6 +15,7 @@
 .home__day-row {
     background: var(--black);
     color: var(--white);
+    font-family: "Rubik Mono One", sans-serif;
 }
 
 .home__table td {
@@ -37,8 +38,26 @@
 .home__table input {
     width: 100%;
     font-size: 14px;
+    background: none;
+    border: none;
+}
+
+.home__submit-button--padding {
+    padding: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    position: fixed;
 }
 
 .home__submit-button {
-    margin: 1rem 0;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.home__footer {
+    position: absolute;
+    height: 5rem;
+    width: 100%;
+    left: 0;
 }

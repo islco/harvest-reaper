@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <main class='text-center'>
-        <img src="https://media.giphy.com/media/pa37AAGzKXoek/giphy.gif" alt="Successfully reaping!"/>
+        <img class='success__gif' src="{% static 'img/reaperClap.gif' %}" alt="Reaper clapping"/>
         <h1>Congrats!</h1>
         <span>Check <a href='https://isltime.harvestapp.com/'>Harvest</a> to confirm</span>
     </main>

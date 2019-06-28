@@ -10,12 +10,12 @@
 
 {% block content %}
 <main class="text-center">
-    <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
 
     {% if not user.is_authenticated %}
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
-        <h1>{{time_window.start}} - {{time_window.end}}</h1>
+        <h3>{{time_window.start}} - {{time_window.end}}</h3>
 
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
@@ -34,7 +34,7 @@
                     <th>Summary</th>
                     <th class="home__project-column">Project</th>
                     <th class="home__task-column">Task</th>
-                    <th class="home__duration-column">Duration (hr)</th>
+                    <th class="home__duration-column">Hours</th>
                     <th class="home__notes-column">Notes</th>
                 </tr>
 
@@ -73,7 +73,11 @@
                     {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
                 {% endfor %}
             </table>
-            <input class='home__submit-button button' type="submit" value="Reap what you've sown!"/>
+            <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'>
+                <div class='home__submit-button--padding'>
+                    <input class='home__submit-button button' type="submit" value="Send it to Harvest"/>
+                </div>
+            </div>
         </form>
     {% endif %}
 </main>
