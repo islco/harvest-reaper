@@ -19,6 +19,7 @@ bundle/
 dist/
 public/media/
 public/static/
+harvestreaper/static/js/*
 node_modules/
 .env
 npm-debug.log

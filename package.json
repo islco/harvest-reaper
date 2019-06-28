@@ -1,0 +1,26 @@
+{
+  "name": "harvest-reaper",
+  "version": "1.0.0",
+  "description": "Get your harvest data seamlessly from Google.",
+  "main": "index.js",
+  "dependencies": {
+    "string-similarity": "^3.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  },
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/istrategylabs/harvest-reaper.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/istrategylabs/harvest-reaper/issues"
+  },
+  "homepage": "https://github.com/istrategylabs/harvest-reaper#readme"
+}
