@@ -23,7 +23,7 @@ class HarvestOAuthSuccessView(RedirectView):
         scope = request.GET.get('scope', '')
         user = request.user
         if not auth_code or not scope or not user.is_authenticated:
-            return HttpResponseNotAllowed()
+            return HttpResponseNotAllowed(['GET'])
 
         token, token_secret, expires_at = get_harvest_token(
             code=auth_code, code_key='code', grant_type='authorization_code')

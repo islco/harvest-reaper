@@ -90,7 +90,7 @@ def get_calendar_events(token, start_date, end_date):
             "raw_start": start,
             "end": massaged_end,
             "duration": round(duration / 60 / 60, 2),
-            "summary": event['summary']
+            "summary": event['summary'] if 'summary' in event else ''
         })
 
     return massaged_events
