@@ -1,3 +1,13 @@
+.home__name {
+    font-size: 4rem;
+    margin: 0;
+}
+
+.home__date {
+    font-size: 2rem;
+    margin: 0.5rem;
+}
+
 /* TABLE */
 .home__project-column {
     width: 15rem;
@@ -43,7 +53,7 @@
 }
 
 .home__submit-button--padding {
-    padding: 0.5rem;
+    padding: 1rem;
     left: 50%;
     transform: translateX(-50%);
     bottom: 0;
@@ -60,4 +70,5 @@
     height: 5rem;
     width: 100%;
     left: 0;
+    margin-top: 1rem;
 }

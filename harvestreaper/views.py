@@ -81,9 +81,9 @@ class HomePageView(TemplateView):
             context['thu_events'] = massaged_events['Thu']
             context['fri_events'] = massaged_events['Fri']
             context['time_window'] = {
-                'start': start_day.strftime('%d %b'),
+                'start': start_day.strftime('%b %d'),
                 # Massage the end day to display the effective end date (i.e. the previous day)
-                'end': (end_day - timedelta(days=1)).strftime('%d %b')
+                'end': (end_day - timedelta(days=1)).strftime('%b %d')
             }
 
             # Harvest
