@@ -1,7 +1,7 @@
 # Harvest Reaper
 
-![Reaper Image](https://github.com/istrategylabs/harvest-reaper/blob/master/harvestreaper/static/img/graveyard-footer-art.png)
 Get your harvest data seamlessly from Google.
+![Reaper Image](https://github.com/istrategylabs/harvest-reaper/blob/master/harvestreaper/static/img/graveyard-footer-art.png)
 
 ---
 
