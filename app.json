@@ -6,6 +6,18 @@
     },
     "SECRET_KEY": {
       "generator": "secret"
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "required": true
+    },
+    "HARVEST_CLIENT_ID": {
+      "required": true
+    },
+    "HARVEST_CLIENT_SECRET": {
+      "required": true
     }
   },
   "addons":[
@@ -14,9 +26,6 @@
   "buildpacks": [
     {
       "url": "heroku/nodejs"
-    },
-    {
-      "url": "https://github.com/istrategylabs/heroku-buildpack-node-cleanup"
     },
     {
       "url": "heroku/python"
