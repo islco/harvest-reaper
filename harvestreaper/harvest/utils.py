@@ -32,9 +32,8 @@ def get_harvest_account(token):
     response = get(f'{HARVEST_AUTH_URL}/api/v2/accounts',
                    headers=headers)
     accounts_list = response.json().get('accounts')
-    for account in accounts_list:
-        if account.get('name').lower() == 'istrategylabs':
-            return account.get('id')
+    if len(accounts_list) > 0:
+        return accounts_list[0].get('id')
 
 
 def get_user_id(token, account_id):
