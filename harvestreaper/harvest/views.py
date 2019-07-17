@@ -61,7 +61,7 @@ class HarvestTimeSubmitView(TemplateView):
                 index_val = f'{entry[0]}-{i}'
                 assignment = form_data.get(f'assignment-{index_val}', None)
                 # No assignment means that the data shouldn't be sent
-                if not assignment:
+                if not assignment or assignment == 'ignore':
                     continue
 
                 project = form_data.get(f'project-{index_val}', None)
@@ -72,10 +72,7 @@ class HarvestTimeSubmitView(TemplateView):
                 if project and duration and raw_time:
                     harvest_token = HarvestToken.objects.filter(user=self.request.user).first()
                     time = datetime.strptime(raw_time, STRPTIME_UTIL)
-
-                    created_entry = post_harvest_time_entry(
+                    post_harvest_time_entry(
                         harvest_token, account_id, project, assignment, time, duration, notes)
-
-        # TODO: Add to context
 
         return self.render_to_response(context)

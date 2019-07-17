@@ -28,6 +28,10 @@
     font-family: "Rubik Mono One", sans-serif;
 }
 
+.home__table {
+    margin: 0 auto;
+}
+
 .home__table td {
     padding: 0.5rem;
 }
@@ -40,7 +44,7 @@
     background: #e7e7e7;
 }
 
-.home_table tr:nth-child(odd) {
+.home__table tr:nth-child(odd) {
     background: #fff;
 }
 
