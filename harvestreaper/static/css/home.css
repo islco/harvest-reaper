@@ -69,6 +69,11 @@
     background: var(--white);
 }
 
+.home__table--no-data {
+    padding: 1.5rem 0 !important;
+    background: var(--grey);
+}
+
 .home__table select,
 .home__table input {
     width: 100%;

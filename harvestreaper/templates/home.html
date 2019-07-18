@@ -51,39 +51,67 @@
                     </tr>
 
                     {% include 'partials/table_day_header.html' with day='Saturday' %}
-                    {% for event in sat_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
-                    {% endfor %}
+                    {% if sat_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in sat_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Sunday' %}
-                    {% for event in sun_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
-                    {% endfor %}
+                    {% if sun_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in sun_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Monday' %}
-                    {% for event in mon_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
-                    {% endfor %}
+                    {% if mon_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in mon_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Tuesday' %}
-                    {% for event in tue_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
-                    {% endfor %}
+                    {% if tue_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in tue_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Wednesday' %}
-                    {% for event in wed_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
-                    {% endfor %}
+                    {% if wed_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in wed_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Thursday' %}
-                    {% for event in thu_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
-                    {% endfor %}
+                    {% if thu_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in thu_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
+                        {% endfor %}
+                    {% endif %}
 
                     {% include 'partials/table_day_header.html' with day='Friday' %}
-                    {% for event in fri_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
-                    {% endfor %}
+                    {% if fri_events|length == 0 %}
+                        {% include 'partials/table_no_data_row.html' %}
+                    {% else %}
+                        {% for event in fri_events %}
+                            {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
+                        {% endfor %}
+                    {% endif %}
                 </table>
                 <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'>
                     <div class='home__submit-button--padding'>
