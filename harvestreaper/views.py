@@ -25,6 +25,10 @@ class LandingPageView(TemplateView):
         return context
 
 
+class PrivacyPageView(TemplateView):
+    template_name = 'privacy.html'
+
+
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
