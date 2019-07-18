@@ -10,7 +10,7 @@ from harvestreaper.googlecal.views import GoogleOAuth2Adapter
 from harvestreaper.settings import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 
 STRPTIME_UTIL = "%Y-%m-%dT%H:%M:%S%z"
-STRFTIME_UTIL = "%I:%M%p"
+STRFTIME_UTIL = "%I:%M %p"
 
 
 def _get_creds(token):
@@ -89,8 +89,8 @@ def get_calendar_events(token, start_date, end_date):
             day_of_week = raw_day.strftime('%a')
             start = datetime.strftime(raw_day + timedelta(hours=9),
                                       STRPTIME_UTIL)  # Set to 9AM by default
-            massaged_start = "09:00AM"
-            massaged_end = "05:00PM"
+            massaged_start = "09:00 AM"
+            massaged_end = "05:00 PM"
 
         massaged_events[day_of_week].append({
             "start": massaged_start,

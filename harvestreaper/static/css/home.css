@@ -16,7 +16,7 @@
 
 /* TABLE */
 .home__project-column {
-    width: 15rem;
+    width: 20rem;
 }
 .home__task-column {
     width: 10rem;
@@ -35,7 +35,18 @@
 }
 
 .home__table {
-    margin: 0 auto;
+    margin: 24px auto 60px;
+}
+
+.home__mtg-summary {
+    text-align: left;
+    padding: 1rem !important;
+    font-size: 22px;
+}
+
+.home__mtg-time {
+    font-size: 16px;
+    opacity: 0.7;
 }
 
 .home__table--min-width {
