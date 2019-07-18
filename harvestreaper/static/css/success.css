@@ -1,3 +1,14 @@
 .success__gif {
-    max-height: 50vh;
+    max-height: 20vh;
+}
+
+.success__total-row {
+    background: var(--white);
+    color: var(--black);
+    font-family: "Rubik Mono One", sans-serif;
+}
+
+.success__harvest-link {
+    display: block;
+    margin: 1rem;
 }

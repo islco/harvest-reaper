@@ -38,6 +38,10 @@
     margin: 0 auto;
 }
 
+.home__table--min-width {
+    min-width: 50vw;
+}
+
 .home__table td {
     padding: 0.5rem;
 }
@@ -47,11 +51,11 @@
 }
 
 .home__table tr:nth-child(even) {
-    background: #e7e7e7;
+    background: var(--grey);
 }
 
 .home__table tr:nth-child(odd) {
-    background: #fff;
+    background: var(--white);
 }
 
 .home__table select,
