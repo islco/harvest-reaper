@@ -10,79 +10,90 @@
 
 {% block content %}
 <main class="text-center">
-    <h1 class='home__name'>{{user.first_name}} {{user.last_name}}</h1>
+    {% if google_error %}
+        <h1>Gooogle Auth Failure</h1>
+        <p class="home__error">
+            Your Google authentication has failed. Please email us at <a href="mailto:engineering@isl.co">engineering@isl.co</a> and
+            we will get you squared away!
 
-    {% if not user.is_authenticated %}
-        <div>Please sign in to see your calendar and harvest details</div>
+            As a work around, you can signout using the link in the header and then sign back in. You will likely see this
+            same issue going forward unless you reach out to us.
+        </p>
     {% else %}
-        <h3 class='home__date'>
-            <a href="{{ prev_week_url }}" aria-label="Go back a week in time" class="home__date-link"><</a>
-            {{time_window.start}} - {{time_window.end}}
-            <a href="{{ next_week_url }}" aria-label="Go forward a week in time" class="home__date-link">></a>
-        </h3>
+        <h1 class='home__name'>{{user.first_name}} {{user.last_name}}</h1>
 
-        <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="satentries" value="{{sat_events|length}}">
-            <input type="hidden" name="sunentries" value="{{sun_events|length}}">
-            <input type="hidden" name="monentries" value="{{mon_events|length}}">
-            <input type="hidden" name="tueentries" value="{{tue_events|length}}">
-            <input type="hidden" name="wedentries" value="{{wed_events|length}}">
-            <input type="hidden" name="thuentries" value="{{thu_events|length}}">
-            <input type="hidden" name="frientries" value="{{fri_events|length}}">
-            <input type="hidden" name="harvestid" value="{{harvest_id}}">
-            <table class='home__table'>
-                <tr>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Meeting Title</th>
-                    <th class="home__project-column">Project</th>
-                    <th class="home__task-column">Task</th>
-                    <th class="home__duration-column">Hours</th>
-                    <th class="home__notes-column">Notes</th>
-                </tr>
+        {% if not user.is_authenticated %}
+            <div>Please sign in to see your calendar and harvest details</div>
+        {% else %}
+            <h3 class='home__date'>
+                <a href="{{ prev_week_url }}" aria-label="Go back a week in time" class="home__date-link"><</a>
+                {{time_window.start}} - {{time_window.end}}
+                <a href="{{ next_week_url }}" aria-label="Go forward a week in time" class="home__date-link">></a>
+            </h3>
 
-                {% include 'partials/table_day_header.html' with day='Saturday' %}
-                {% for event in sat_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
-                {% endfor %}
+            <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="satentries" value="{{sat_events|length}}">
+                <input type="hidden" name="sunentries" value="{{sun_events|length}}">
+                <input type="hidden" name="monentries" value="{{mon_events|length}}">
+                <input type="hidden" name="tueentries" value="{{tue_events|length}}">
+                <input type="hidden" name="wedentries" value="{{wed_events|length}}">
+                <input type="hidden" name="thuentries" value="{{thu_events|length}}">
+                <input type="hidden" name="frientries" value="{{fri_events|length}}">
+                <input type="hidden" name="harvestid" value="{{harvest_id}}">
+                <table class='home__table'>
+                    <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Meeting Title</th>
+                        <th class="home__project-column">Project</th>
+                        <th class="home__task-column">Task</th>
+                        <th class="home__duration-column">Hours</th>
+                        <th class="home__notes-column">Notes</th>
+                    </tr>
 
-                {% include 'partials/table_day_header.html' with day='Sunday' %}
-                {% for event in sun_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
-                {% endfor %}
+                    {% include 'partials/table_day_header.html' with day='Saturday' %}
+                    {% for event in sat_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
+                    {% endfor %}
 
-                {% include 'partials/table_day_header.html' with day='Monday' %}
-                {% for event in mon_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
-                {% endfor %}
+                    {% include 'partials/table_day_header.html' with day='Sunday' %}
+                    {% for event in sun_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
+                    {% endfor %}
 
-                {% include 'partials/table_day_header.html' with day='Tuesday' %}
-                {% for event in tue_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
-                {% endfor %}
+                    {% include 'partials/table_day_header.html' with day='Monday' %}
+                    {% for event in mon_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
+                    {% endfor %}
 
-                {% include 'partials/table_day_header.html' with day='Wednesday' %}
-                {% for event in wed_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
-                {% endfor %}
+                    {% include 'partials/table_day_header.html' with day='Tuesday' %}
+                    {% for event in tue_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
+                    {% endfor %}
 
-                {% include 'partials/table_day_header.html' with day='Thursday' %}
-                {% for event in thu_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
-                {% endfor %}
+                    {% include 'partials/table_day_header.html' with day='Wednesday' %}
+                    {% for event in wed_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
+                    {% endfor %}
 
-                {% include 'partials/table_day_header.html' with day='Friday' %}
-                {% for event in fri_events %}
-                    {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
-                {% endfor %}
-            </table>
-            <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'>
-                <div class='home__submit-button--padding'>
-                    <input class='home__submit-button button' type="submit" value="Send it to Harvest"/>
+                    {% include 'partials/table_day_header.html' with day='Thursday' %}
+                    {% for event in thu_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
+                    {% endfor %}
+
+                    {% include 'partials/table_day_header.html' with day='Friday' %}
+                    {% for event in fri_events %}
+                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
+                    {% endfor %}
+                </table>
+                <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'>
+                    <div class='home__submit-button--padding'>
+                        <input class='home__submit-button button' type="submit" value="Send it to Harvest"/>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        {% endif %}
     {% endif %}
 </main>
 {% endblock content %}

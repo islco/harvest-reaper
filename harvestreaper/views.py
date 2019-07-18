@@ -82,6 +82,10 @@ class HomePageView(TemplateView):
             end_day = now + timedelta(days=5 - now.weekday()) - \
                 timedelta(weeks=-weeks, hours=now.hour - 4, minutes=now.minute)
             massaged_events = get_calendar_events(token, start_day, end_day)
+            if massaged_events is None:
+                # There has been an error here so let's tell the user
+                context['google_error'] = True
+                return context
             context['sat_events'] = massaged_events['Sat']
             context['sun_events'] = massaged_events['Sun']
             context['mon_events'] = massaged_events['Mon']
