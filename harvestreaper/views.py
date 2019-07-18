@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
+from django.urls import reverse
 from datetime import datetime, timedelta
 import json
 
@@ -60,6 +61,10 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        weeks = int(self.request.GET.get('weeks', 0))
+        context['prev_week_url'] = reverse('home') + f'?weeks={weeks-1}'
+        context['next_week_url'] = reverse('home') + f'?weeks={weeks+1}'
+
         google_social_account = kwargs.pop('google', None)
         harvest_token = kwargs.pop('harvest', None)
 
@@ -73,9 +78,9 @@ class HomePageView(TemplateView):
             # back to previous Sat.
             # Adding 4 to account for UTC
             start_day = now - timedelta(days=now.weekday() + 2) - \
-                timedelta(hours=now.hour - 4, minutes=now.minute)
+                timedelta(weeks=-weeks, hours=now.hour - 4, minutes=now.minute)
             end_day = now + timedelta(days=5 - now.weekday()) - \
-                timedelta(hours=now.hour - 4, minutes=now.minute)
+                timedelta(weeks=-weeks, hours=now.hour - 4, minutes=now.minute)
             massaged_events = get_calendar_events(token, start_day, end_day)
             context['sat_events'] = massaged_events['Sat']
             context['sun_events'] = massaged_events['Sun']

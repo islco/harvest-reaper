@@ -8,6 +8,12 @@
     margin: 0.5rem;
 }
 
+.home__date-link {
+    text-decoration: none;
+    color: inherit;
+    padding: 0 1rem;
+}
+
 /* TABLE */
 .home__project-column {
     width: 15rem;

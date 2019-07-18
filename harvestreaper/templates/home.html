@@ -15,7 +15,11 @@
     {% if not user.is_authenticated %}
         <div>Please sign in to see your calendar and harvest details</div>
     {% else %}
-        <h3 class='home__date'>{{time_window.start}} - {{time_window.end}}</h3>
+        <h3 class='home__date'>
+            <a href="{{ prev_week_url }}" aria-label="Go back a week in time" class="home__date-link"><</a>
+            {{time_window.start}} - {{time_window.end}}
+            <a href="{{ next_week_url }}" aria-label="Go forward a week in time" class="home__date-link">></a>
+        </h3>
 
         <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
             {% csrf_token %}
