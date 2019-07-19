@@ -32,66 +32,93 @@
             </h3>
 
             <form action="{% url 'harvest_time_submit' %}" id="harvestform" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="satentries" value="{{sat_events|length}}">
-                <input type="hidden" name="sunentries" value="{{sun_events|length}}">
-                <input type="hidden" name="monentries" value="{{mon_events|length}}">
-                <input type="hidden" name="tueentries" value="{{tue_events|length}}">
-                <input type="hidden" name="wedentries" value="{{wed_events|length}}">
-                <input type="hidden" name="thuentries" value="{{thu_events|length}}">
-                <input type="hidden" name="frientries" value="{{fri_events|length}}">
-                <input type="hidden" name="harvestid" value="{{harvest_id}}">
-                <table class='home__table'>
-                    <tr>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Meeting Title</th>
-                        <th class="home__project-column">Project</th>
-                        <th class="home__task-column">Task</th>
-                        <th class="home__duration-column">Hours</th>
-                        <th class="home__notes-column">Notes</th>
-                    </tr>
+                <div>
+                    {% csrf_token %}
+                    <input type="hidden" name="satentries" value="{{sat_events|length}}">
+                    <input type="hidden" name="sunentries" value="{{sun_events|length}}">
+                    <input type="hidden" name="monentries" value="{{mon_events|length}}">
+                    <input type="hidden" name="tueentries" value="{{tue_events|length}}">
+                    <input type="hidden" name="wedentries" value="{{wed_events|length}}">
+                    <input type="hidden" name="thuentries" value="{{thu_events|length}}">
+                    <input type="hidden" name="frientries" value="{{fri_events|length}}">
+                    <input type="hidden" name="harvestid" value="{{harvest_id}}">
+                    <table class='home__table'>
+                        <tr>
+                            <th>Meeting Details</th>
+                            <th class="home__project-column">Project</th>
+                            <th class="home__task-column">Task</th>
+                            <th class="home__duration-column">Hours</th>
+                            <th class="home__notes-column">Notes</th>
+                        </tr>
 
-                    {% include 'partials/table_day_header.html' with day='Saturday' %}
-                    {% for event in sat_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Saturday' events_count=sat_events|length %}
+                        {% if sat_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in sat_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sat' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Sunday' %}
-                    {% for event in sun_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Sunday' events_count=sun_events|length %}
+                        {% if sun_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in sun_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='sun' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Monday' %}
-                    {% for event in mon_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Monday' events_count=mon_events|length %}
+                        {% if mon_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in mon_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='mon' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Tuesday' %}
-                    {% for event in tue_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Tuesday' events_count=tue_events|length %}
+                        {% if tue_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in tue_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='tue' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Wednesday' %}
-                    {% for event in wed_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Wednesday' events_count=wed_events|length %}
+                        {% if wed_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in wed_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='wed' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Thursday' %}
-                    {% for event in thu_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
-                    {% endfor %}
+                        {% include 'partials/table_day_header.html' with day='Thursday' events_count=thu_events|length %}
+                        {% if thu_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in thu_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='thu' %}
+                            {% endfor %}
+                        {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Friday' %}
-                    {% for event in fri_events %}
-                        {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
-                    {% endfor %}
-                </table>
-                <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'>
+                        {% include 'partials/table_day_header.html' with day='Friday' events_count=fri_events|length %}
+                        {% if fri_events|length == 0 %}
+                            {% include 'partials/table_no_data_row.html' %}
+                        {% else %}
+                            {% for event in fri_events %}
+                                {% include 'partials/table_row.html' with event=event projects=harvest_projects index=forloop.counter day='fri' %}
+                            {% endfor %}
+                        {% endif %}
+                    </table>
                     <div class='home__submit-button--padding'>
                         <input class='home__submit-button button' type="submit" value="Send it to Harvest"/>
                     </div>
                 </div>
+                <div class="home__footer" style='background-image: url({% static 'img/graveyard-footer-art.png' %});'></div>
             </form>
         {% endif %}
     {% endif %}

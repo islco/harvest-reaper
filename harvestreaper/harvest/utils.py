@@ -96,4 +96,18 @@ def post_harvest_time_entry(token, account_id, project_id, task_id, spent_date, 
     created_entry = post(f'{HARVEST_API_URL}/time_entries',
                          headers=headers, json=time_data)
 
-    return created_entry
+    resp_json = created_entry.json()
+    entry = None
+    if created_entry.ok:
+        entry = {
+            'date': datetime.strftime(
+                datetime.strptime(resp_json.get("spent_date", datetime.now()), '%Y-%m-%d'), '%A'),
+            'hours': resp_json.get("hours", 0),
+            'notes': resp_json.get("notes", 0),
+            'task': resp_json.get("task", {}).get("name", "UNKNOWN"),
+            'project': resp_json.get("project", {}).get("name", "UNKNOWN")
+        }
+    else:
+        print(f'Error: Entry failed to submit for reason - {resp_json}')
+
+    return entry

@@ -5,6 +5,50 @@
     <main class='text-center'>
         <img class='success__gif' src="{% static 'img/reaperClap.gif' %}" alt="Reaper clapping"/>
         <h1>Congrats!</h1>
-        <span>Check <a href='https://isltime.harvestapp.com/'>Harvest</a> to confirm</span>
+        {% if entries %}
+            <section>
+                <h2>Successfully Submitted {{ total_submission_text }}</h2>
+                <table class="home__table home__table--min-width">
+                    <tr>
+                        <th>Notes</th>
+                        <th>Hours</th>
+                        <th>Project</th>
+                        <th>Task</th>
+                    </tr>
+
+                    {% include 'partials/table_day_row.html' with day='Saturday' total=totals.Saturday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Saturday %}
+
+                    {% include 'partials/table_day_row.html' with day='Sunday' total=totals.Sunday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Sunday %}
+
+                    {% include 'partials/table_day_row.html' with day='Monday' total=totals.Monday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Monday %}
+
+                    {% include 'partials/table_day_row.html' with day='Tuesday' total=totals.Tuesday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Tuesday %}
+
+                    {% include 'partials/table_day_row.html' with day='Wednesday' total=totals.Wednesday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Wednesday %}
+
+                    {% include 'partials/table_day_row.html' with day='Thursday' total=totals.Thursday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Thursday %}
+
+                    {% include 'partials/table_day_row.html' with day='Friday' total=totals.Friday %}
+                    {% include 'partials/table_data_row.html' with entries=entries.Friday %}
+
+                    <tr>
+                        <th class="success__total-row" colspan="5">
+                            <span class="success__total-text">Total: {{ totals.All }} hrs</span>
+                        </th>
+                    </tr>
+                </table>
+            </section>
+            <a href='https://api.harvestapp.com/' class="success__harvest-link button">Go to Harvest to wrap things up</a>
+        {% else %}
+            <p>
+                No data was sent to Harvest.
+            </p>
+        {% endif %}
     </main>
 {% endblock %}

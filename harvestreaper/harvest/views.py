@@ -43,6 +43,7 @@ class HarvestTimeSubmitView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         form_data = request.POST
+
         entries = [
             ('sat', form_data.get('satentries', 0)),
             ('sun', form_data.get('sunentries', 0)),
@@ -52,8 +53,8 @@ class HarvestTimeSubmitView(TemplateView):
             ('thu', form_data.get('thuentries', 0)),
             ('fri', form_data.get('frientries', 0)),
         ]
-
         account_id = form_data.get('harvestid', 0)
+        successfully_submitted_entries = []
 
         # Iterate over every possible calendar entry and submit to Harvest
         for entry in entries:
@@ -72,7 +73,42 @@ class HarvestTimeSubmitView(TemplateView):
                 if project and duration and raw_time:
                     harvest_token = HarvestToken.objects.filter(user=self.request.user).first()
                     time = datetime.strptime(raw_time, STRPTIME_UTIL)
-                    post_harvest_time_entry(
+                    submitted_entry = post_harvest_time_entry(
                         harvest_token, account_id, project, assignment, time, duration, notes)
+                    if submitted_entry is not None:
+                        successfully_submitted_entries.append(submitted_entry)
+
+        if len(successfully_submitted_entries) > 0:
+            massaged_entries = {
+                'Saturday': [],
+                'Sunday': [],
+                'Monday': [],
+                'Tuesday': [],
+                'Wednesday': [],
+                'Thursday': [],
+                'Friday': []
+            }
+            totals = {
+                'Saturday': 0,
+                'Sunday': 0,
+                'Monday': 0,
+                'Tuesday': 0,
+                'Wednesday': 0,
+                'Thursday': 0,
+                'Friday': 0,
+                'All': 0
+            }
+
+            for submission in successfully_submitted_entries:
+                sub_date = submission.get('date')
+                hrs = submission['hours']
+                massaged_entries[sub_date].append(submission)
+                totals[sub_date] += hrs
+                totals['All'] += hrs
+
+            context['entries'] = massaged_entries
+            context['total_submission_text'] = f'{len(successfully_submitted_entries)} '\
+                f'entr{"ies" if len(successfully_submitted_entries) > 1 else "y"}'
+            context['totals'] = totals
 
         return self.render_to_response(context)

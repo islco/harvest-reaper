@@ -16,7 +16,7 @@
 
 /* TABLE */
 .home__project-column {
-    width: 15rem;
+    width: 20rem;
 }
 .home__task-column {
     width: 10rem;
@@ -32,10 +32,40 @@
     background: var(--black);
     color: var(--white);
     font-family: "Rubik Mono One", sans-serif;
+    padding: 0 2rem;
+}
+
+.home__day-row--opaque {
+    opacity: 0.5;
+}
+
+.home__day--float {
+    font-family: inherit;
+    float: left;
+}
+
+.home__day--float-right {
+    float: right;
 }
 
 .home__table {
-    margin: 0 auto;
+    margin: 24px auto 0;
+}
+
+.home__table--min-width {
+    min-width: 50vw;
+    margin: 24px auto 30px;
+}
+
+.home__mtg-summary {
+    text-align: left;
+    padding: 1rem !important;
+    font-size: 22px;
+}
+
+.home__mtg-time {
+    font-size: 16px;
+    opacity: 0.7;
 }
 
 .home__table td {
@@ -47,11 +77,17 @@
 }
 
 .home__table tr:nth-child(even) {
-    background: #e7e7e7;
+    background: var(--grey);
 }
 
 .home__table tr:nth-child(odd) {
-    background: #fff;
+    background: var(--white);
+}
+
+.home__table--no-data {
+    padding: 1.5rem 0 !important;
+    background: var(--grey);
+    opacity: 0.5;
 }
 
 .home__table select,
@@ -65,9 +101,8 @@
 .home__submit-button--padding {
     padding: 1rem;
     left: 50%;
-    transform: translateX(-50%);
     bottom: 0;
-    position: fixed;
+    position: sticky;
 }
 
 .home__submit-button {
