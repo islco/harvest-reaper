@@ -49,7 +49,12 @@
 }
 
 .home__table {
-    margin: 24px auto 60px;
+    margin: 24px auto 0;
+}
+
+.home__table--min-width {
+    min-width: 50vw;
+    margin: 24px auto 30px;
 }
 
 .home__mtg-summary {
@@ -61,10 +66,6 @@
 .home__mtg-time {
     font-size: 16px;
     opacity: 0.7;
-}
-
-.home__table--min-width {
-    min-width: 50vw;
 }
 
 .home__table td {
@@ -100,9 +101,8 @@
 .home__submit-button--padding {
     padding: 1rem;
     left: 50%;
-    transform: translateX(-50%);
     bottom: 0;
-    position: fixed;
+    position: sticky;
 }
 
 .home__submit-button {
