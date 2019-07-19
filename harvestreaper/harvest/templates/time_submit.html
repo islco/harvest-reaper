@@ -38,7 +38,9 @@
                     {% include 'partials/table_data_row.html' with entries=entries.Friday %}
 
                     <tr>
-                        <th class="success__total-row" colspan="5">Total: {{ totals.All }}hrs</th>
+                        <th class="success__total-row" colspan="5">
+                            <span class="success__total-text">Total: {{ totals.All }} hrs</span>
+                        </th>
                     </tr>
                 </table>
             </section>

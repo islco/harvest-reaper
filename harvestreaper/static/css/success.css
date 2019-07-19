@@ -8,6 +8,13 @@
     font-family: "Rubik Mono One", sans-serif;
 }
 
+.success__total-text {
+    font-family: inherit;
+    font-size: 20px;
+    float: right;
+    padding-right: 2rem;
+}
+
 .success__harvest-link {
     display: block;
     margin: 1rem;

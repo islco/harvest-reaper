@@ -32,6 +32,16 @@
     background: var(--black);
     color: var(--white);
     font-family: "Rubik Mono One", sans-serif;
+    padding: 0 2rem;
+}
+
+.home__day-float {
+    font-family: inherit;
+    float: left;
+}
+
+.home__day-float--right {
+    float: right;
 }
 
 .home__table {
