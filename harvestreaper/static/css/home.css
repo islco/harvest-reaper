@@ -39,12 +39,12 @@
     opacity: 0.5;
 }
 
-.home__day-float {
+.home__day--float {
     font-family: inherit;
     float: left;
 }
 
-.home__day-float--right {
+.home__day--float-right {
     float: right;
 }
 
