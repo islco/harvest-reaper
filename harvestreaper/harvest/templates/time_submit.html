@@ -7,7 +7,7 @@
         <h1>Congrats!</h1>
         {% if entries %}
             <section>
-                <h2>Successfully Submitted Entries</h2>
+                <h2>Successfully Submitted {{ total_submission_text }}</h2>
                 <table class="home__table home__table--min-width">
                     <tr>
                         <th>Notes</th>
@@ -44,7 +44,7 @@
                     </tr>
                 </table>
             </section>
-            <span class="success__harvest-link">Check <a href='https://isltime.harvestapp.com/'>Harvest</a> to confirm</span>
+            <a href='https://api.harvestapp.com/' class="success__harvest-link button">Go to Harvest to wrap things up</a>
         {% else %}
             <p>
                 No data was sent to Harvest.

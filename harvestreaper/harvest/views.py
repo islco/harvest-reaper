@@ -107,6 +107,8 @@ class HarvestTimeSubmitView(TemplateView):
                 totals['All'] += hrs
 
             context['entries'] = massaged_entries
+            context['total_submission_text'] = f'{len(successfully_submitted_entries)} '\
+                f'entr{"ies" if len(successfully_submitted_entries) > 1 else "y"}'
             context['totals'] = totals
 
         return self.render_to_response(context)

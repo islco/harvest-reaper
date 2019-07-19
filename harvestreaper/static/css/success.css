@@ -16,6 +16,6 @@
 }
 
 .success__harvest-link {
-    display: block;
+    display: inline-block;
     margin: 1rem;
 }
