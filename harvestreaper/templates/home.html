@@ -50,7 +50,7 @@
                         <th class="home__notes-column">Notes</th>
                     </tr>
 
-                    {% include 'partials/table_day_header.html' with day='Saturday' %}
+                    {% include 'partials/table_day_header.html' with day='Saturday' events_count=sat_events|length %}
                     {% if sat_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -59,7 +59,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Sunday' %}
+                    {% include 'partials/table_day_header.html' with day='Sunday' events_count=sun_events|length %}
                     {% if sun_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -68,7 +68,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Monday' %}
+                    {% include 'partials/table_day_header.html' with day='Monday' events_count=mon_events|length %}
                     {% if mon_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -77,7 +77,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Tuesday' %}
+                    {% include 'partials/table_day_header.html' with day='Tuesday' events_count=tue_events|length %}
                     {% if tue_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -86,7 +86,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Wednesday' %}
+                    {% include 'partials/table_day_header.html' with day='Wednesday' events_count=wed_events|length %}
                     {% if wed_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -95,7 +95,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Thursday' %}
+                    {% include 'partials/table_day_header.html' with day='Thursday' events_count=thu_events|length %}
                     {% if thu_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}
@@ -104,7 +104,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% include 'partials/table_day_header.html' with day='Friday' %}
+                    {% include 'partials/table_day_header.html' with day='Friday' events_count=fri_events|length %}
                     {% if fri_events|length == 0 %}
                         {% include 'partials/table_no_data_row.html' %}
                     {% else %}

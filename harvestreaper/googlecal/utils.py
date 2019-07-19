@@ -84,8 +84,14 @@ def get_calendar_events(token, start_date, end_date):
             massaged_start = start_obj.strftime(STRFTIME_UTIL)
             massaged_end = end_obj.strftime(STRFTIME_UTIL)
         else:
-            raw_day = timezone(
-                'US/Eastern').localize(datetime.strptime(event['start'].get('date'), '%Y-%m-%d'))
+            # Check to see if it's a multi day event
+            # NOTE: We don't present multi day events because there are so many edges at the moment
+            full_day_start = datetime.strptime(event['start'].get('date'), '%Y-%m-%d')
+            full_day_end = datetime.strptime(event['end'].get('date'), '%Y-%m-%d')
+            if full_day_start.day != full_day_end.day - 1:  # 12am - 12am next day (hence - 1 day)
+                continue
+
+            raw_day = timezone('US/Eastern').localize(full_day_start)
             day_of_week = raw_day.strftime('%a')
             start = datetime.strftime(raw_day + timedelta(hours=9),
                                       STRPTIME_UTIL)  # Set to 9AM by default
