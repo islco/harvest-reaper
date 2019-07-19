@@ -18,6 +18,7 @@
         {% for provider in socialaccount_providers %}
             <a class="button" role="button" title="{{provider.name}}" href="{% provider_login_url provider.id process='login' scope=scope auth_params=auth_params %}">Sign In With {{provider.name}}</a>
         {% endfor %}
+        <a class="landing__privacy-link" href={% url 'privacy' %}>Privacy Policy</a>
     </div>
 
     <img class="landing__graphic" src="{% static 'img/ReaperCal.png' %}" alt="Harvest Reaper coming to get your calendar!"/>

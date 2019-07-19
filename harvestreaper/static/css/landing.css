@@ -17,6 +17,18 @@
     margin-left: 2rem; /* Super hacky adjusment for desktop "centered" appearance */
 }
 
+.landing__privacy-link {
+    color: inherit;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.landing__privacy-link:hover {
+    opacity: 1;
+}
+
 /* Right Side */
 .landing__graphic {
     max-height: 100vh;
