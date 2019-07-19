@@ -60,23 +60,61 @@ window.addEventListener("DOMContentLoaded", () => {
         '[data-sel="project-input"]'
       );
       const currentProjectOptions = currentProjectInput.options;
+      let matched = false;
 
-      const bestMatch = stringSimilarity.findBestMatch(
-        summary.toLowerCase(),
-        projectOptions.map(opt => opt.toLowerCase())
-      ).bestMatch;
-      // Default to ISL internal if we aren't pretty darn confident
-      let matchValue = "iStrategyLabs ISL: Internal".toLowerCase();
-      if (bestMatch.rating > 0.2) {
-        matchValue = bestMatch.target;
-      }
+      // Before we try to assign a fuzzy match, see if we have an existing match
+      if (previousSubmissions) {
+        for (const [key, value] of Object.entries(previousSubmissions)) {
+          const similarity = stringSimilarity.compareTwoStrings(
+            key,
+            summary.toLowerCase()
+          );
 
-      Array.from(currentProjectOptions).map(opt => {
-        if (opt.text.toLowerCase() == matchValue) {
-          opt.selected = "selected";
-          setAssignments(currentProjectInput);
+          // Do a very high threshhold similarity match that we can refine later
+          if (similarity >= 0.95) {
+            // Set the project first and then the assignments
+            Array.from(currentProjectOptions).map(opt => {
+              if (opt.value == value[0].toString()) {
+                opt.selected = "selected";
+                setAssignments(currentProjectInput);
+              }
+            });
+
+            // Now that assignments have been populated assign the correct one
+            const currentAssignmentInput = row.querySelector(
+              '[data-sel="assignment-input"]'
+            );
+            const currentAssignmentOptions = currentAssignmentInput.options;
+            Array.from(currentAssignmentOptions).map(opt => {
+              if (opt.value == value[1].toString()) {
+                opt.selected = "selected";
+              }
+            });
+
+            matched = true;
+          }
         }
-      });
+
+        // Try simple fuzzy match of project if nothing else
+        if (!matched) {
+          const bestMatch = stringSimilarity.findBestMatch(
+            summary.toLowerCase(),
+            projectOptions.map(opt => opt.toLowerCase())
+          ).bestMatch;
+          // Default to ISL internal if we aren't pretty darn confident
+          let matchValue = "iStrategyLabs ISL: Internal".toLowerCase();
+          if (bestMatch.rating > 0.2) {
+            matchValue = bestMatch.target;
+          }
+
+          Array.from(currentProjectOptions).map(opt => {
+            if (opt.text.toLowerCase() == matchValue) {
+              opt.selected = "selected";
+              setAssignments(currentProjectInput);
+            }
+          });
+        }
+      }
     });
 
   /**

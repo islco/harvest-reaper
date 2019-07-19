@@ -4,6 +4,7 @@
 {% block extra_head %}
 <script type="text/javascript">
     const harvestProjects = {% autoescape off %}{{ harvest_projects_json }}{% endautoescape %};
+    const previousSubmissions = {% autoescape off %}{{ previous_submission_values }}{% endautoescape %};
 </script>
 <script type="application/javascript" src="{% static 'js/main.js' %}"></script>
 {% endblock %}

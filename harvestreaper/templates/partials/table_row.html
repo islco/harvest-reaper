@@ -1,6 +1,7 @@
 <tr data-sel='row'>
-    <td class="home__mtg-summary" data-sel='summary'>
-        {{event.summary}}
+    <input type="hidden" name="summary-{{day}}-{{index}}" value="{{event.summary}}">
+    <td class="home__mtg-summary">
+        <span data-sel='summary'>{{event.summary}}</span>
         <br/>
         <span class="home__mtg-time">{{event.start}} - {{event.end}}</span>
     </td>

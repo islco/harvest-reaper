@@ -5,6 +5,7 @@ from django.http import (
 from datetime import datetime
 
 from harvestreaper.settings import HARVEST_CLIENT_ID
+from harvestreaper.harvest.models import HarvestSubmission
 from harvestreaper.harvest.utils import (
     HARVEST_AUTH_URL, get_harvest_token, post_harvest_time_entry)
 from harvestreaper.harvest.models import HarvestToken
@@ -65,6 +66,7 @@ class HarvestTimeSubmitView(TemplateView):
                 if not assignment or assignment == 'ignore':
                     continue
 
+                summary = form_data.get(f'summary-{index_val}', None)
                 project = form_data.get(f'project-{index_val}', None)
                 duration = form_data.get(f'duration-{index_val}', None)
                 notes = form_data.get(f'notes-{index_val}', None)
@@ -77,6 +79,11 @@ class HarvestTimeSubmitView(TemplateView):
                         harvest_token, account_id, project, assignment, time, duration, notes)
                     if submitted_entry is not None:
                         successfully_submitted_entries.append(submitted_entry)
+                        HarvestSubmission.objects \
+                                         .update_or_create(user=request.user,
+                                                           event_name=summary,
+                                                           defaults={'assignment_id': assignment,
+                                                                     'project_id': project})
 
         if len(successfully_submitted_entries) > 0:
             massaged_entries = {

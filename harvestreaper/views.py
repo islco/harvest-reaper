@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import json
 
 from harvestreaper.googlecal.utils import get_calendar_events
-from harvestreaper.harvest.models import HarvestToken
+from harvestreaper.harvest.models import HarvestToken, HarvestSubmission
 from harvestreaper.harvest.utils import get_harvest_account, get_harvest_assignments, get_user_id
 
 
@@ -106,4 +106,14 @@ class HomePageView(TemplateView):
             context['harvest_id'] = account
             context['harvest_projects'] = projects
             context['harvest_projects_json'] = json.dumps(projects)
+
+            # Previous submissions
+            previous_submission_qs = HarvestSubmission.objects \
+                .filter(user=self.request.user).values_list(
+                    'event_name', 'project_id', 'assignment_id')
+            previous_submission_dict = json.dumps({
+                sub[0].lower(): (sub[1], sub[2]) for sub in previous_submission_qs
+            })
+            context['previous_submission_values'] = previous_submission_dict
+
         return context

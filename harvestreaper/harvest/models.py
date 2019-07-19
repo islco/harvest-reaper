@@ -42,3 +42,21 @@ class HarvestToken(Model):
         self.token_secret = token_secret
         self.expires_at = expires_at
         self.save()
+
+
+class HarvestSubmission(Model):
+    user = ForeignKey(User, on_delete=CASCADE)
+    event_name = TextField(
+        verbose_name='event name',
+        help_text='The name of the event submitted to Harvest')
+    assignment_id = IntegerField(
+        null=True,
+        verbose_name='assignment id',
+        help_text='Assignment id the event is associated with on Harvest')
+    project_id = IntegerField(
+        null=True,
+        verbose_name='project id',
+        help_text='Project id the event is associated with on Harvest')
+
+    def __str__(self):
+        return self.event_name
