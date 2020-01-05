@@ -4,7 +4,7 @@
   "description": "Get your harvest data seamlessly from Google.",
   "main": "index.js",
   "dependencies": {
-    "string-similarity": "^3.0.0"
+    "string-similarity": "^4.0.0"
   },
   "devDependencies": {
     "webpack": "^4.35.0",
