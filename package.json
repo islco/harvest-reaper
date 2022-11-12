@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "webpack": "4.42",
-    "webpack-cli": "3.3.11"
+    "webpack-cli": "3.3.12"
   },
   "scripts": {
     "build": "webpack"
